@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/kenburns.js"></script>
+</head>
+<style>
+#container {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    background-color: #000000;
+    width:100%;
+    height:100vh;
+}
+canvas {
+	text-align: center;
+}
+</style>
+<body style="margin:0;padding:0;background-color: #000">
+
+<div id="container"><!-- flex container -->
+</div>
+</body>
+
+
+
+<script type="text/javascript">
+	var globalImages = [];
+	var startShow = function() {
+		$('#kenburns').kenburns({
+			images: globalImages,
+			frames_per_second: 60,
+			display_time: 5000,
+			fade_time: 1500,
+			zoom: 2,
+			background_color:'#000000',
+			post_render_callback:function($canvas, context) {
+				// Called after the effect is rendered
+				// Draw anything you like on to of the canvas
+
+				context.save();
+				context.fillStyle = '#000';
+				context.font = 'bold 20px sans-serif';
+				var width = $canvas.width();
+				var height = $canvas.height();
+				var text = "flickr.com/billowycoat/";
+				var metric = context.measureText(text);
+
+				context.fillStyle = '#fff';
+
+				context.shadowOffsetX = 3;
+				context.shadowOffsetY = 3;
+				context.shadowBlur = 4;
+				context.shadowColor = 'rgba(0, 0, 0, 0.8)';
+
+				context.fillText(text, width - metric.width - 8, height - 8);
+
+				context.restore();
+			}
+		});
+	};
+
+	var refreshShow = function() {
+		// var ratio = 1509.0 / 2272.0;
+		var ratio = 2272.0 / 1509.0;
+		var w = window.innerWidth * ratio;
+		var h = window.innerHeight;
+
+		console.log("ratio,w,h:innerHeight=", ratio,w,h, window.innerHeight);
+
+		var canvas = document.createElement('canvas');
+		canvas.id     = "kenburns";
+		canvas.width  = w;
+		canvas.height = h;
+		$('#container').empty();
+		$('#container').append(canvas);
+		startShow();
+	};
+
+	$( window ).resize(function() {
+		if (globalImages.length > 1) {
+			// refreshShow();
+			location.reload(true);
+		}
+	});
+
+	$(function(){
+		$.getJSON( "show.json?email=v@vineel.com", function( data ) {
+			console.log("data", data);
+			var photoArr = [];
+			var nAssets = data.assets.length
+			console.log(nAssets)
+			for (var i=0; i<nAssets; i++) {
+				var asset = data.assets[i];
+				globalImages.push('/photos/' + asset.url);
+			}
+			refreshShow();
+		});
+	});
+
+</script>
+
+</html>

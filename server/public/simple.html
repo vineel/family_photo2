@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>A simple DIY responsive slideshow made with HTML5, CSS3, and JavaScript</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/demostyles.css">
+        <link rel="stylesheet" href="css/simple-slideshow-styles.css">
+        <script src="/js/jquery.min.js"></script>
+        <style>
+            #figure_list {
+                padding: 0;
+                margin: 0;
+                width:1200px;
+                height:1200px;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            figure {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <header>
+            <h1>A Better Simple Slideshow</h1>
+            <p><span class="desc">A simple DIY responsive JavaScript slideshow.</span> [<a href="https://github.com/leemark/better-simple-slideshow">GitHub<span> repo</span></a>]</p>
+        </header>    
+        <div class="bss-slides num1" tabindex="1" autofocus="autofocus" id="figure_list">
+            <figure>
+		      <img src="img/medium.jpg" width="100%" /><figcaption>"Medium" by <a href="https://www.flickr.com/photos/thomashawk/14586158819/">Thomas Hawk</a>.</figcaption> 
+            </figure>
+            <figure>
+		      <img src="img/colorado.jpg" width="100%" /><figcaption>"Colorado" by <a href="https://www.flickr.com/photos/stuckincustoms/88370744">Trey Ratcliff</a>.</figcaption> 
+            </figure>
+        </div> <!-- // bss-slides -->  
+
+<script src="js/better-simple-slideshow.js"></script>
+<script>
+
+    var refreshShow = function(srcImages) {
+        for (var i=0; i<srcImages.length; i++) {
+            console.log("srcImage:", srcImages[i]);
+            var dImg = document.createElement("img");
+            dImg.src = srcImages[i].url;
+            if (srcImages[i].width >= srcImages.height) {
+                dImg.style.width = '1000px';
+            } else {
+                dImg.style.height = '1200px';
+            }
+
+            var dCaption = document.createElement("figcaption")
+            dCaption.appendChild(document.createTextNode("TEST"));
+
+            var dFig = document.createElement("figure");
+            dFig.appendChild(dImg);
+            dFig.appendChild(dCaption);
+
+            document.getElementById('figure_list').appendChild(dFig);
+        }
+
+        var opts = {
+            auto : {
+                speed : 1000, 
+                pauseOnHover : true
+            },
+            fullScreen : false, 
+            swipe : true
+        };
+
+        makeBSS('.num1', opts);
+    };
+
+    $(function(){
+        var globalImages = [];
+
+        $.getJSON( "show.json?email=v@vineel.com", function( data ) {
+            console.log("data", JSON.stringify(data));
+            var photoArr = [];
+            var nAssets = data.assets.length
+            console.log(nAssets)
+            for (var i=0; i<nAssets; i++) {
+                var asset = data.assets[i];
+                asset.url = '/photos/' + asset.url;
+                globalImages.push(asset);
+            }
+            refreshShow(globalImages);
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "family_photo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "browserify_entrypoint.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vineel Shah <vshah@glgroup.com> (http://vineel.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "13.0.1",
+    "gulp": "3.9.1",
+    "gulp-watch": "4.3.5",
+    "hammerjs": "2.0.8",
+    "riot": "2.4.0",
+    "riotify": "1.0.1",
+    "rowjam": "https://github.com/glg/rowjam.git",
+    "vinyl-source-stream": "1.1.0"
+  },
+  "devDependencies": {
+    "gulp-watch": "4.3.5"
+  }
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="/jslib/jquery.min.js"></script>
+<style>
+body {
+	background-color: #000;
+}
+</style>
+</head>
+<body>
+<slideshow-viewer></slideshow-viewer>
+
+<script src="js/main.bundle.js"></script>
+<script>
+	window.addEventListener("load",function() {
+		// Set a timeout...
+		setTimeout(function(){
+			// Hide the address bar!
+			window.scrollTo(0, 1);
+		}, 0);
+	});
+</script>
+</body>
+</html>
