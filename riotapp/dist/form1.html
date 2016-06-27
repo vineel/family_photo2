@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>simple.html</title>
+ 
+  </head>
+  <body>
+ 
+    <app></app>
+ 
+    <script type="riot/tag">
+      <app>
+        <rf-form model="{ form }" class-name="custom-class">
+          <input type="submit" value="Save">
+        </rf-form>
+ 
+        <div class="output">
+          Username: <span class="username">{ form.model.username }</span>
+          Profile: <span class="profile">{ form.model.profile }</span>
+        </div>
+ 
+        this.form = new riotForm.Form.Builder('simple')
+                                .addInput({name: 'username', type: 'text'})
+                                .addInput({name: 'profile', type: 'textarea'})
+                                .setModel({username: 'Daniel', profile: 'My name is Daniel'})
+                                .build();
+ 
+        this.form.on('change', () => this.update())
+      </app>
+    </script> 
+ 
+    <script src="./js/riotcompiler.js"></script> 
+    <script src="./js/riot-form.js"></script> 
+ 
+    <script>
+      riot.mount('app')
+    </script> 
+  </body>
+</html>

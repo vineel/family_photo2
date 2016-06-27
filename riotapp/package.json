@@ -1,0 +1,23 @@
+{
+  "name": "riot_starter_1",
+  "version": "1.0.0",
+  "description": "Simple Riot App",
+  "main": "index.js",
+  "scripts": {
+    "start": "php -S localhost:3000 -t dist"
+  },
+  "author": "Vineel Shah <vshah@glgroup.com> (http://vineel.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "13.0.0",
+    "gulp": "3.9.0",
+    "gulp-watch": "4.3.5",
+    "http-server": "0.8.5",
+    "marmottajax": "2.0.2",
+    "riot": "2.3.13",
+    "riot-form": "0.1.5",
+    "riotify": "0.1.2",
+    "rowjam": "https://github.com/glg/rowjam.git",
+    "vinyl-source-stream": "1.1.0"
+  }
+}
